@@ -1,0 +1,26 @@
+﻿@inject IJSRuntime JsRuntime;
+@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<button @onclick="Play">Play</button>
+
+@code {
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender) {
+            await JsRuntime.InvokeAsync<object>("init", null);
+
+        }
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    private void Play(MouseEventArgs e)
+    {
+        JsRuntime.InvokeAsync<object>("play", null);
+    }
+}
